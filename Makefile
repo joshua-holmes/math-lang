@@ -1,6 +1,11 @@
-compile: src/main.c
-	@gcc src/main.c -o main
+CC = clang
 
-run-example: src/main.c
-	@make run-example && ./main example.do && rm ./main
+all: run-example
+
+compile: src/main.c
+	@$(CC) src/main.c -o main
+
+run-example: compile main
+	@./main example.do
+	@rm ./main
 
