@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "./other.h"
 
 int main(int argc, char **argv) {
   // get input file name
@@ -39,6 +40,8 @@ int main(int argc, char **argv) {
     fgets(str, max_line_size, file);
     printf("%s", str);
   }
+
+  printf("%s\n", test());
 
   fclose(file);
 }
