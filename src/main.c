@@ -13,6 +13,7 @@ int main(int argc, char **argv) {
   FILE *file = fopen(input, "r");
   if (file == NULL) {
     printf("ERROR: Failed to open file.\n");
+    exit(1);
   }
 
   // get size of largest line
