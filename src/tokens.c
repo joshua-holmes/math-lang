@@ -64,7 +64,9 @@ void tokenize_line(Token *tokens, int token_count, char *line) {
     new_token.value[tv_i] = '\0';
 
     if (is_word) {
-      if (cmp_str(new_token.value, "make") || cmp_str(new_token.value, "print") || cmp_str(new_token.value, "add") || cmp_str(new_token.value, "sub")) {
+      if (cmp_str(new_token.value, "make") ||
+          cmp_str(new_token.value, "print") ||
+          cmp_str(new_token.value, "add") || cmp_str(new_token.value, "sub")) {
         new_token.type = COMMAND;
       } else {
         new_token.type = NAME;

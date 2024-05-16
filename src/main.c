@@ -1,18 +1,18 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "./tokens.h"
 #include "./utils.h"
+#include <stdio.h>
+#include <stdlib.h>
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
   // get input file name
   if (argc < 2) {
     printf("ERROR: Did not provide input file as argument. Exiting.\n");
     exit(1);
   }
-  const char* input = argv[1];
+  const char *input = argv[1];
 
   // open file
-  FILE* file = fopen(input, "r");
+  FILE *file = fopen(input, "r");
   if (file == NULL) {
     printf("ERROR: Failed to open file.\n");
     exit(1);
