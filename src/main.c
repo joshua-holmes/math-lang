@@ -1,17 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "./other.h"
+#include "./tokens.h"
+#include "./utils.h"
 
-int main(int argc, char **argv) {
+int main(int argc, char** argv) {
   // get input file name
   if (argc < 2) {
     printf("ERROR: Did not provide input file as argument. Exiting.\n");
     exit(1);
   }
-  const char *input = argv[1];
+  const char* input = argv[1];
 
   // open file
-  FILE *file = fopen(input, "r");
+  FILE* file = fopen(input, "r");
   if (file == NULL) {
     printf("ERROR: Failed to open file.\n");
     exit(1);
@@ -34,14 +35,19 @@ int main(int argc, char **argv) {
   fseek(file, 0, SEEK_SET);
 
   // read a line at a time
-  printf("SIZE %i\n", max_line_size);
   while (!feof(file)) {
-    char str[max_line_size];
-    fgets(str, max_line_size, file);
-    printf("%s", str);
-  }
+    char line[max_line_size];
+    fgets(line, max_line_size, file);
+    to_lower(line);
+    int i = 0;
 
-  printf("%s\n", test());
+    int token_count = count_tokens(line);
+    Token tokens[token_count];
+    tokenize_line(tokens, token_count, line);
+    for (int i = 0; i < token_count; i++) {
+      printf("TOKENS %d, %s\n", tokens[i].type, tokens[i].value);
+    }
+  }
 
   fclose(file);
 }
