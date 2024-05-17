@@ -1,5 +1,6 @@
 #include "./utils.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 enum TokenType {
   COMMAND,
@@ -10,6 +11,10 @@ typedef struct Token {
   int type;
   char value[21]; // null-terminated string
 } Token;
+typedef struct TokenizedLine {
+  Token tokens[100];
+  int length;
+} TokenizedLine;
 
 // assumes line is terminated by `\n` then `\0` in that order
 int count_tokens(char *line) {
@@ -32,9 +37,14 @@ int count_tokens(char *line) {
 }
 
 // assumes line is terminated by `\n` then `\0` in that order
-void tokenize_line(Token *tokens, int token_count, char *line) {
+TokenizedLine tokenize_line(int token_count, char *line) {
+  if (token_count > 100) {
+    printf("ERROR: dolang does not support more than 100 tokens in a single line");
+    exit(1);
+  }
   int line_count = count_chars_in_line(line);
   int j = 0;
+  TokenizedLine tokenized_line;
   for (int i = 0; i < token_count; i++) {
     int token_len;
     int is_word = 0;
@@ -75,6 +85,18 @@ void tokenize_line(Token *tokens, int token_count, char *line) {
       new_token.type = NUMBER;
     }
 
-    tokens[i] = new_token;
+    tokenized_line.tokens[i] = new_token;
+  }
+  tokenized_line.length = token_count;
+  return tokenized_line;
+}
+
+void tokenize_lines(TokenizedLine *tokenized_lines, FILE *file, int line_count, int max_line_size) {
+  for (int i = 0; i < line_count; i++) {
+    char line[max_line_size];
+    fgets(line, max_line_size, file);
+    to_lower(line);
+    int token_count = count_tokens(line);
+    tokenized_lines[i] = tokenize_line(token_count, line);
   }
 }

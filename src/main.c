@@ -46,14 +46,10 @@ int main(int argc, char **argv) {
   fseek(file, 0, SEEK_SET);
 
   // read a line at a time and tokenize
-  Token tokenized_lines[line_count][max_line_size];
-  for (int i = 0; i < line_count; i++) {
-    char line[max_line_size];
-    fgets(line, max_line_size, file);
-    to_lower(line);
-    int token_count = count_tokens(line);
-    tokenize_line(tokenized_lines[i], token_count, line);
-  }
+  TokenizedLine tokenized_lines[line_count];
+  tokenize_lines(tokenized_lines, file, line_count, max_line_size);
+
+  // build assembly file from tokens
 
   fclose(file);
 }
