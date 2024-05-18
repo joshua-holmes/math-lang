@@ -32,8 +32,8 @@ int basic_hash_str(char *str, int max_value) {
     }
 
     // '0' is the lowest ascii value that this hashing function accepts
-    // `num` can never be lower than 1
-    int num = str[i] - '0' + 1;
+    // `num` can never be lower than 0
+    int num = str[i] - '0';
     hashcode += num;
 
     i++;
