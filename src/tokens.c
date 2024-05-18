@@ -2,13 +2,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-enum TokenType {
+typedef enum TokenType {
   COMMAND,
+  OPERAND,
   NAME,
   NUMBER,
-};
+} TokenType;
 typedef struct Token {
-  int type;
+  TokenType type;
   char value[21]; // null-terminated string
 } Token;
 typedef struct TokenizedLine {
@@ -34,6 +35,18 @@ int count_tokens(char *line) {
     i++;
   }
   return space_count + 1;
+}
+
+int get_token_type(char *value, int is_word) {
+  if (is_word) {
+    if (cmp_str(value, "make") || cmp_str(value, "print")) {
+      return COMMAND;
+    } else if (cmp_str(value, "add") || cmp_str(value, "sub")) {
+      return OPERAND;
+    }
+    return NAME;
+  }
+  return NUMBER;
 }
 
 // assumes line is terminated by `\n` then `\0` in that order
@@ -73,17 +86,7 @@ TokenizedLine tokenize_line(int token_count, char *line) {
     }
     new_token.value[tv_i] = '\0';
 
-    if (is_word) {
-      if (cmp_str(new_token.value, "make") ||
-          cmp_str(new_token.value, "print") ||
-          cmp_str(new_token.value, "add") || cmp_str(new_token.value, "sub")) {
-        new_token.type = COMMAND;
-      } else {
-        new_token.type = NAME;
-      }
-    } else {
-      new_token.type = NUMBER;
-    }
+    new_token.type = get_token_type(new_token.value, is_word);
 
     tokenized_line.tokens[i] = new_token;
   }

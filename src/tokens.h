@@ -1,14 +1,15 @@
 #include <stdio.h>
 
-typedef struct Token {
-  int type;
-  char value[21]; // null-terminated string
-} Token;
-enum TokenType {
+typedef enum TokenType {
   COMMAND,
+  OPERAND,
   NAME,
   NUMBER,
-};
+} TokenType;
+typedef struct Token {
+  TokenType type;
+  char value[21]; // null-terminated string
+} Token;
 typedef struct TokenizedLine {
   Token tokens[100];
   int length;
