@@ -3,4 +3,4 @@ int is_number(char c);
 int is_letter(char c);
 void to_upper(char *c);
 void to_lower(char *c);
-int cmp_str(char *s1, char *s2);
+int cmp_str(const char *s1, const char *s2);

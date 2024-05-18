@@ -1,7 +1,8 @@
-#include "./tokens.h"
-#include "./utils.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "./hashmap.h"
+#include "./tokens.h"
+#include "./utils.h"
 
 int main(int argc, char **argv) {
   // get input file name
