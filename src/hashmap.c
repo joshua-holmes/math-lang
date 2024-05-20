@@ -3,7 +3,7 @@
 #include "./utils.h"
 
 typedef struct KVPair {
-  char *key;
+  char key[21];
   int value;
   struct KVPair *next;
 } KVPair;
@@ -68,10 +68,9 @@ void hm_set(HashMap *hm, char *key, int value) {
 
   // not found, setup new pair
   KVPair *new_pair = malloc(sizeof(*new_pair));
-  new_pair->key = key;
+  copy_str(new_pair->key, key);
   new_pair->value = value;
   new_pair->next = hm->list[hashcode];
   hm->list[hashcode] = new_pair;
   hm->length++;
-
 }
