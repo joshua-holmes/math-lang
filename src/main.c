@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "./hashmap.h"
-#include "./tokens.h"
+#include "./compile.h"
 #include "./utils.h"
 
 int main(int argc, char **argv) {
@@ -51,6 +51,7 @@ int main(int argc, char **argv) {
   tokenize_lines(tokenized_lines, file, line_count, max_line_size);
 
   // build assembly file from tokens
+  compile_tokens(tokenized_lines, line_count);
 
   fclose(file);
 }

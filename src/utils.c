@@ -65,3 +65,12 @@ int cmp_str(const char *s1, const char *s2) {
   }
   return s1[i] == s2[i];
 }
+
+void copy_str(char *dest, const char *source) {
+  int i = 0;
+  while (source[i] != '\0') {
+    dest[i] = source[i];
+    i++;
+  }
+  dest[i] = '\0';
+}
