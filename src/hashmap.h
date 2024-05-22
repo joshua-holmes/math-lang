@@ -9,6 +9,7 @@ typedef struct HashMap {
   unsigned int length;
 } HashMap;
 
-HashMap *new_hash_map(int capacity);
+HashMap new_hash_map(int capacity);
 int hm_get(HashMap *hm, char *key);
 void hm_set(HashMap *hm, char *key, int value);
+void hm_free(HashMap hm);

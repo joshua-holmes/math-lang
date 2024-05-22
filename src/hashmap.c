@@ -13,11 +13,11 @@ typedef struct HashMap {
   unsigned int length;
 } HashMap;
 
-HashMap *new_hash_map(int capacity) {
-  HashMap *hm = malloc(sizeof(*hm));
-  hm->capacity = capacity;
-  hm-> length = 0;
-  hm->list = calloc(hm->capacity, sizeof(KVPair*));
+HashMap new_hash_map(int capacity) {
+  HashMap hm;
+  hm.capacity = capacity;
+  hm.length = 0;
+  hm.list = calloc(hm.capacity, sizeof(KVPair*));
   return hm;
 }
 
@@ -74,3 +74,9 @@ void hm_set(HashMap *hm, char *key, int value) {
   hm->list[hashcode] = new_pair;
   hm->length++;
 }
+
+void hm_free(HashMap hm) {
+  free(*hm.list);
+  free(hm.list);
+}
+

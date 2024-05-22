@@ -1,6 +1,6 @@
 #include "./hashmap.h"
 #include "./tokens.h"
-#include "./string.h"
+#include "./assembly.h"
 #include "./utils.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,8 +14,6 @@ typedef struct Resolution {
   Status status;
 } Resolution;
 
-void assemble_print(int value) {
-}
 
 Resolution resolve_tokens(HashMap *name_map, TokenizedLine t_line, int *start) {
   Resolution res;
@@ -59,7 +57,6 @@ Resolution resolve_tokens(HashMap *name_map, TokenizedLine t_line, int *start) {
                "the name. Missing value.\n");
         exit(1);
       }
-      assemble_print(res_a.value);
     }
     break;
   case OPERAND:
@@ -100,11 +97,12 @@ Resolution resolve_tokens(HashMap *name_map, TokenizedLine t_line, int *start) {
 }
 
 void compile_tokens(TokenizedLine *tokenized_lines, int line_count) {
-  HashMap *name_map = new_hash_map(500);
+  HashMap name_map = new_hash_map(500);
+  Assembly assembly = new_asm();
   for (int i = 0; i < line_count; i++) {
     TokenizedLine t_line = tokenized_lines[i];
     int start_i = 0;
-    resolve_tokens(name_map, t_line, &start_i);
+    resolve_tokens(&name_map, t_line, &start_i);
   }
-  free(name_map);
+  hm_free(name_map);
 }
