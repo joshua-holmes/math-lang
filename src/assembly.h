@@ -14,3 +14,4 @@ typedef enum Section {
 
 void asm_add_line(Assembly *assembly, Section section, const char *line);
 Assembly new_asm();
+void asm_free(Assembly assembly);

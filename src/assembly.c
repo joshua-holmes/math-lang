@@ -65,3 +65,9 @@ Assembly new_asm() {
 
   return assembly;
 }
+
+void asm_free(Assembly assembly) {
+  str_free(&assembly.bss);
+  str_free(&assembly.data);
+  str_free(&assembly.text);
+}

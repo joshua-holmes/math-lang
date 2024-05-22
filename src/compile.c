@@ -104,5 +104,6 @@ void compile_tokens(TokenizedLine *tokenized_lines, int line_count) {
     int start_i = 0;
     resolve_tokens(&name_map, t_line, &start_i);
   }
+  asm_free(assembly);
   hm_free(name_map);
 }
