@@ -17,8 +17,7 @@ DynStr new_str() {
 
 void str_append(DynStr *dyn_str, char *str) {
   int length = 0;
-  while (str[length++] != '\0') {
-  };
+  while (str[length++] != '\0');
 
   // reallocate
   if (length + dyn_str->length > dyn_str->capacity) {

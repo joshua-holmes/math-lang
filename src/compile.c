@@ -1,5 +1,6 @@
 #include "./hashmap.h"
 #include "./tokens.h"
+#include "./string.h"
 #include "./utils.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,6 +13,9 @@ typedef struct Resolution {
   int value;
   Status status;
 } Resolution;
+
+void assemble_print(int value) {
+}
 
 Resolution resolve_tokens(HashMap *name_map, TokenizedLine t_line, int *start) {
   Resolution res;
@@ -27,13 +31,13 @@ Resolution resolve_tokens(HashMap *name_map, TokenizedLine t_line, int *start) {
   switch (t.type) {
   case COMMAND:
     *start += 1;
+    if (*start >= t_line.length) {
+      printf("ERROR: \"make\" command needs a name after it and value after "
+             "the name. Missing name.\n");
+      exit(1);
+    }
     if (cmp_str(t.value, "make")) {
       Token name_token = t_line.tokens[*start];
-      if (*start >= t_line.length) {
-        printf("ERROR: \"make\" command needs a name after it and value after "
-               "the name. Missing name.\n");
-        exit(1);
-      }
       if (name_token.type != NAME) {
         printf("ERROR: Name of variable cannot start with number or be a "
                "reserved keyword.\n\"%s\" is an invalid variable name.\n",
@@ -48,7 +52,14 @@ Resolution resolve_tokens(HashMap *name_map, TokenizedLine t_line, int *start) {
         exit(1);
       }
       hm_set(name_map, name_token.value, res_a.value);
-      printf("ANSWER %s = %d\n", name_token.value, res_a.value);
+    } else if (cmp_str(t.value, "print")) {
+      res_a = resolve_tokens(name_map, t_line, start);
+      if (res_a.status == OUT_OF_TOKENS) {
+        printf("ERROR: \"print\" command needs a name after it and value after "
+               "the name. Missing value.\n");
+        exit(1);
+      }
+      assemble_print(res_a.value);
     }
     break;
   case OPERAND:
