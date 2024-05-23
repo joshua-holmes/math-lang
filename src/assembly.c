@@ -23,7 +23,7 @@ void asm_add_line(Assembly *assembly, Section section, const char *line) {
   for (int i = 0; i < mod_length; i++) {
     if (i < spaces) {
       mod_line[i] = ' ';
-    } else if (i < mod_length - 3) {
+    } else if (i < mod_length - 2) {
       mod_line[i] = line[i - 4];
     } else if (i < mod_length - 1) {
       mod_line[i] = '\n';
