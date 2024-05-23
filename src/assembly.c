@@ -17,10 +17,11 @@ typedef enum Section {
 void asm_add_line(Assembly *assembly, Section section, const char *line) {
   int length = 0;
   while (line[length++] != '\0');
-  int mod_length = length + 5; // auto add 4 spaces before line and a '\n'
+  int spaces = section == ASM_TEXT ? 8 : 4;
+  int mod_length = length + spaces + 1; // auto add 4 spaces before line and a '\n'
   char mod_line[mod_length];
   for (int i = 0; i < mod_length; i++) {
-    if (i < 4) {
+    if (i < spaces) {
       mod_line[i] = ' ';
     } else if (i < mod_length - 3) {
       mod_line[i] = line[i - 4];
