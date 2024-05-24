@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+const char *ASM_OUT = "out.asm";
+
 int main(int argc, char **argv) {
   // get input file name
   if (argc < 2) {
@@ -32,6 +34,7 @@ int main(int argc, char **argv) {
   compile_tokens(&assembly, tokenized_lines, f_info.line_count);
 
   // assembly
+  write_to_assembly(&assembly, ASM_OUT);
   asm_free(assembly);
 
   fclose(file);

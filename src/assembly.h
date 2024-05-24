@@ -21,4 +21,4 @@ Assembly new_asm();
 void asm_free(Assembly assembly);
 void asm_create_unique_var_name(Assembly *assembly, char str[ASM_VAR_LENGTH]);
 void asm_print_var(Assembly *assembly, int value);
-void assemble(Assembly *assembly);
+void write_to_assembly(Assembly *assembly, const char *fout_name);
