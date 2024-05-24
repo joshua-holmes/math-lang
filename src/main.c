@@ -51,7 +51,11 @@ int main(int argc, char **argv) {
   tokenize_lines(tokenized_lines, file, line_count, max_line_size);
 
   // build assembly file from tokens
-  compile_tokens(tokenized_lines, line_count);
+  Assembly assembly = new_asm();
+  compile_tokens(&assembly, tokenized_lines, line_count);
+
+  // assembly
+  asm_free(assembly);
 
   fclose(file);
 }

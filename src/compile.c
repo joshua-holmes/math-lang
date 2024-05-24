@@ -15,7 +15,7 @@ typedef struct Resolution {
 } Resolution;
 
 
-Resolution resolve_tokens(HashMap *name_map, TokenizedLine t_line, int *start) {
+Resolution resolve_tokens(HashMap *name_map, Assembly *assembly, TokenizedLine t_line, int *start) {
   Resolution res;
   res.value = 0;
   if (*start >= t_line.length) {
@@ -43,7 +43,7 @@ Resolution resolve_tokens(HashMap *name_map, TokenizedLine t_line, int *start) {
         exit(1);
       }
       *start += 1;
-      res_a = resolve_tokens(name_map, t_line, start);
+      res_a = resolve_tokens(name_map, assembly, t_line, start);
       if (res_a.status == OUT_OF_TOKENS) {
         printf("ERROR: \"make\" command needs a name after it and value after "
                "the name. Missing value.\n");
@@ -51,18 +51,19 @@ Resolution resolve_tokens(HashMap *name_map, TokenizedLine t_line, int *start) {
       }
       hm_set(name_map, name_token.value, res_a.value);
     } else if (cmp_str(t.value, "print")) {
-      res_a = resolve_tokens(name_map, t_line, start);
+      res_a = resolve_tokens(name_map, assembly, t_line, start);
       if (res_a.status == OUT_OF_TOKENS) {
         printf("ERROR: \"print\" command needs a name after it and value after "
                "the name. Missing value.\n");
         exit(1);
       }
+      asm_print_var(assembly, res_a.value);
     }
     break;
   case OPERAND:
     *start += 1;
-    res_a = resolve_tokens(name_map, t_line, start);
-    res_b = resolve_tokens(name_map, t_line, start);
+    res_a = resolve_tokens(name_map, assembly, t_line, start);
+    res_b = resolve_tokens(name_map, assembly, t_line, start);
     if (res_a.status == OUT_OF_TOKENS || res_b.status == OUT_OF_TOKENS) {
       printf("ERROR: Operands need 2 expressions after them.\n\nFor example, "
              "`add 8` is invalid. It needs something to add 8 to.\n");
@@ -96,14 +97,12 @@ Resolution resolve_tokens(HashMap *name_map, TokenizedLine t_line, int *start) {
   return res;
 }
 
-void compile_tokens(TokenizedLine *tokenized_lines, int line_count) {
+void compile_tokens(Assembly *assembly, TokenizedLine *tokenized_lines, int line_count) {
   HashMap name_map = new_hash_map(500);
-  Assembly assembly = new_asm();
   for (int i = 0; i < line_count; i++) {
     TokenizedLine t_line = tokenized_lines[i];
     int start_i = 0;
-    resolve_tokens(&name_map, t_line, &start_i);
+    resolve_tokens(&name_map, assembly, t_line, &start_i);
   }
-  asm_free(assembly);
   hm_free(name_map);
 }
