@@ -22,20 +22,10 @@ static const int ASM_VAR_LENGTH = 10;
 void asm_add_line(Assembly *assembly, Section section, const char *line) {
   int length = 0;
   while (line[length++] != '\0');
-  int spaces = section == ASM_TEXT ? 8 : 4;
-  int mod_length = length + spaces + 1; // auto add 4 spaces before line and a '\n'
+  char *fmt = section == ASM_TEXT ? "        %s\n" : "    %s\n";
+  int mod_length = snprintf(NULL, 0, fmt, line);
   char mod_line[mod_length];
-  for (int i = 0; i < mod_length; i++) {
-    if (i < spaces) {
-      mod_line[i] = ' ';
-    } else if (i < mod_length - 2) {
-      mod_line[i] = line[i - 4];
-    } else if (i < mod_length - 1) {
-      mod_line[i] = '\n';
-    } else {
-      mod_line[i] = '\0';
-    }
-  }
+  sprintf(mod_line, fmt, line);
 
   switch (section) {
   case ASM_BSS:
