@@ -124,13 +124,13 @@ void asm_print_var(Assembly *assembly, int value) {
   int data_3_length = snprintf(NULL, 0, data_3_formatting, var_name);
   char data_3_line[data_3_length];
   sprintf(data_3_line, data_3_formatting, var_name, value);
-  asm_add_line(assembly, ASM_DATA, data_3_line);
+  asm_add_line(assembly, ASM_TEXT, data_3_line);
 
-  char *data_4_formatting = "mov rdx,%s_len";
+  char *data_4_formatting = "mov rdx,%s_len\n";
   int data_4_length = snprintf(NULL, 0, data_4_formatting, var_name);
   char data_4_line[data_4_length];
   sprintf(data_4_line, data_4_formatting, var_name);
-  asm_add_line(assembly, ASM_DATA, data_4_line);
+  asm_add_line(assembly, ASM_TEXT, data_4_line);
 }
 
 void assemble(Assembly *assembly) {
