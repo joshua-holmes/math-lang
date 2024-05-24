@@ -12,10 +12,10 @@ int main(int argc, char **argv) {
     printf("ERROR: Did not provide input file as argument. Exiting.\n");
     exit(1);
   }
-  const char *input = argv[1];
+  const char *input_fname = argv[1];
 
   // open file
-  FILE *file = fopen(input, "r");
+  FILE *file = fopen(input_fname, "r");
   if (file == NULL) {
     printf("ERROR: Failed to open file.\n");
     exit(1);

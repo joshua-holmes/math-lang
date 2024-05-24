@@ -123,7 +123,7 @@ void asm_print_var(Assembly *assembly, int value) {
   asm_add_line(assembly, ASM_TEXT, data_4_line);
 }
 
-void write_to_assembly(Assembly *assembly, const char *fout_name) {
+void write_to_assembly(Assembly *assembly, const char *output_fname) {
   // wrap up the assembly program
   asm_add_line(assembly, ASM_TEXT, "syscall\n");
   asm_add_line(assembly, ASM_TEXT, "; end program");
@@ -131,7 +131,7 @@ void write_to_assembly(Assembly *assembly, const char *fout_name) {
   asm_add_line(assembly, ASM_TEXT, "move rdi,0");
   asm_add_line(assembly, ASM_TEXT, "syscall");
 
-  FILE *file = fopen(fout_name, "w");
+  FILE *file = fopen(output_fname, "w");
   fprintf(file, "%s", assembly->bss.value);
   fprintf(file, "\n");
   fprintf(file, "%s", assembly->data.value);
