@@ -1,5 +1,10 @@
 #include <stdio.h>
 
+typedef struct FileInfo {
+  int line_count;
+  int max_line_length;
+} FileInfo;
+
 // assumes line is terminated by `\n` then `\0` in that order
 // includes `\n` and `\0` in count
 int count_chars_in_line(char *line) {
@@ -73,4 +78,37 @@ void copy_str(char *dest, const char *source) {
     i++;
   }
   dest[i] = '\0';
+}
+
+FileInfo read_file_for_info(FILE *file) {
+  // starting at 2 to account for `\n` and `\0`
+  int cur_line_size = 2;
+  int max_line_length = 2;
+  int line_count = 1;
+  int is_last_line_empty = 1;
+  while (!feof(file)) {
+    char cur_c = fgetc(file);
+    if (cur_c == '\n') {
+      cur_line_size = 2;
+      line_count += 1;
+      is_last_line_empty = 1;
+    } else {
+      cur_line_size += 1;
+      if (cur_line_size > max_line_length) {
+        max_line_length = cur_line_size;
+      }
+      if (is_letter(cur_c)) {
+        is_last_line_empty = 0;
+      }
+    }
+  }
+  if (is_last_line_empty) {
+    line_count -= 1;
+  }
+  fseek(file, 0, SEEK_SET);
+  FileInfo f_info;
+  f_info.line_count = line_count;
+  f_info.max_line_length = max_line_length;
+
+  return f_info;
 }
