@@ -127,8 +127,8 @@ void write_to_assembly(Assembly *assembly, const char *output_fname) {
   // wrap up the assembly program
   asm_add_line(assembly, ASM_TEXT, "syscall\n");
   asm_add_line(assembly, ASM_TEXT, "; end program");
-  asm_add_line(assembly, ASM_TEXT, "move rax,60");
-  asm_add_line(assembly, ASM_TEXT, "move rdi,0");
+  asm_add_line(assembly, ASM_TEXT, "mov rax,60");
+  asm_add_line(assembly, ASM_TEXT, "mov rdi,0");
   asm_add_line(assembly, ASM_TEXT, "syscall");
 
   FILE *file = fopen(output_fname, "w");
