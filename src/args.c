@@ -55,6 +55,10 @@ void validate_args(Options *options) {
     printf("ERROR: No input file given.\n");
     print_help();
     exit(1);
+  } else if (options->assemble_and_link && (system("which nasm") || system("which ld"))) {
+    printf("\nERROR: When assembling and linking is enabled, both the `nasm` and `ld` programs must be installed and added to path.\n");
+    printf("If you want to disable assembling and linking, pass the --no-asm flag to mang when compiling.\n");
+    exit(1);
   }
 }
 
