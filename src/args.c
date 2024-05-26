@@ -10,7 +10,7 @@ typedef struct Options {
 } Options;
 
 void print_help() {
-  printf("Usage: dolang [options] filename\n");
+  printf("Usage: mang [options] filename\n");
   printf("Options:\n");
   printf("\t-o --output: If --no-asm is not set, this is the name of the compiled executable.\n");
   printf("\t--no-asm: When this option is present, -o is ignored. The program does not link or assemble. The output is an assembly file. Primarily used for debugging purposes.\n");

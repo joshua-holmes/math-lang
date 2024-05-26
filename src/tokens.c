@@ -52,7 +52,7 @@ int get_token_type(char *value, int is_word) {
 // assumes line is terminated by `\n` then `\0` in that order
 TokenizedLine tokenize_line(int token_count, char *line) {
   if (token_count > 100) {
-    printf("ERROR: dolang does not support more than 100 tokens in a single line");
+    printf("ERROR: More than 100 tokens in a single line is not supported");
     exit(1);
   }
   int line_count = count_chars_in_line(line);

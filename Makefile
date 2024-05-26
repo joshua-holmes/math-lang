@@ -1,5 +1,5 @@
 CC = clang
-OUT = dolang
+OUT = mang
 
 all: run-example
 
