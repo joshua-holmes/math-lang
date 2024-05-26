@@ -6,6 +6,7 @@
 #include <stdlib.h>
 
 const char *ASM_OUT = "out.asm";
+const char *OBJ_OUT = "out.o";
 
 int main(int argc, char **argv) {
   // get input options
@@ -38,13 +39,20 @@ int main(int argc, char **argv) {
 
   if (options.assemble_and_link) {
     // assemble
-    char *command_fmt = "nasm -f elf64 %s";
-    int command_len = snprintf(NULL, 0, "nasm -f elf64 %s", ASM_OUT);
-    char command[command_len];
-    sprintf(command, "nasm -f elf64 %s", ASM_OUT);
-    system(command);
+    char *asm_command_fmt = "nasm -f elf64 -o %s %s";
+    int asm_command_len = snprintf(NULL, 0, asm_command_fmt, OBJ_OUT, ASM_OUT);
+    char asm_command[asm_command_len];
+    sprintf(asm_command, asm_command_fmt, OBJ_OUT, ASM_OUT);
+    system(asm_command);
+    remove(ASM_OUT);
 
-    // remove assembly
+    // link
+    char *lnk_command_fmt = "ld -o %s %s";
+    int lnk_command_len = snprintf(NULL, 0, lnk_command_fmt, options.output_f, OBJ_OUT);
+    char lnk_command[lnk_command_len];
+    sprintf(lnk_command, lnk_command_fmt, options.output_f, OBJ_OUT);
+    system(lnk_command);
+    remove(OBJ_OUT);
   }
 
   fclose(file);
