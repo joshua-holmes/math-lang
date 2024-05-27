@@ -4,7 +4,7 @@
 The abomination I have spawned is called Math Lang. It's a bash-style case-insensitive ~~monstrosity~~ *language* focused on performing math operations on large data sets... Well it would be if I implemented the ability to accept large data sets. Look, it's a prototype, okay?
 
 # Dependencies
-You will need `clang` to compile `mang`, the Math Lang compiler. See below on how to do that.
+You will need `clang` to compile `mang`, the Math Lang compiler. See below on how to compile `mang`.
 
 In order to compile Math Lang code, you will need `nasm` (which is an assembler) and `ld` (which is a linker) installed.
 
