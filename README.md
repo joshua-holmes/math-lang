@@ -3,6 +3,16 @@
 
 The abomination I have spawned is called Math Lang. It's a bash-style case-insensitive ~~monstrosity~~ *language* focused on performing math operations on large data sets... Well it would be if I implemented the ability to accept large data sets. Look, it's a prototype, okay?
 
+# Dependencies
+You will need `clang` to compile `mang`, the Math Lang compiler. See below on how to do that.
+
+In order to compile Math Lang code, you will need `nasm` (which is an assembler) and `ld` (which is a linker) installed.
+
+# How To Use
+Type `make` in a terminal in the root directory to see list of dev commands that you can use. To compile Math Lang, type `make compile`. Once compiled, you will see an executable in the root directory called `mang`. This is the new compiler you have just compiled.
+
+To use `mang`, I have created a Math Lang example that you can compile and run in `example.mang`. To compile the example, try `./mang --output example example.mang`. Here, `example.mang` is the file with Math Lang code in it. `--output example` specifies that the compiled executable will be called `example`. You can name the output file whatever you want. Now that you have compiled the example, execute it with `./example`. See `./mang --help` for more Math Lang options.
+
 # How It Works
 The language is separated into commands, operands, names, and numbers.
 
