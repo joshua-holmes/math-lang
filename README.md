@@ -8,7 +8,9 @@ The abomination I have spawned is called Math Lang. It's a bash-style case-insen
 The language is separated into commands, operands, names, and numbers.
 
 ## Command
-A command performs a task and does not return anything as a result. This is similar to a statement in other languages. An example of a command would be `print`. `print 5` will print 5 to stdout. Another example of a command is `make`, which is used for assigning variables and takes in 2 arguments, a name (we'll get to those later) and a number. `make x 8` will store the number `8` in memory under the name `x`. Since `make` is also a command (one is commanding a value to be stored in memory), it does not return anything.
+A command performs a task and does not return anything as a result. This is similar to a statement in other languages. An example of a command would be `print`. `print 5` will print `5` to stdout.* Another example of a command is `make`, which is used for assigning variables and takes in 2 arguments, a name (we'll get to those later) and a number. `make x 8` will store the number `8` in memory under the name `x`. Since `make` is also a command (one is commanding a value to be stored in memory), it does not return anything.
+
+* Currently, `print` can only print the first argument passed to it.
 
 Here are the available commands and their arguments:
 ```
