@@ -121,11 +121,12 @@ void asm_print_var(Assembly *assembly, int value) {
   char data_4_line[data_4_length];
   sprintf(data_4_line, data_4_formatting, var_name);
   asm_add_line(assembly, ASM_TEXT, data_4_line);
+
+  asm_add_line(assembly, ASM_TEXT, "syscall\n");
 }
 
 void write_to_assembly(Assembly *assembly, const char *output_fname) {
   // wrap up the assembly program
-  asm_add_line(assembly, ASM_TEXT, "syscall\n");
   asm_add_line(assembly, ASM_TEXT, "; end program");
   asm_add_line(assembly, ASM_TEXT, "mov rax,60");
   asm_add_line(assembly, ASM_TEXT, "mov rdi,0");
