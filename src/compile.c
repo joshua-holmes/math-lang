@@ -1,6 +1,6 @@
+#include "./assembly.h"
 #include "./hashmap.h"
 #include "./tokens.h"
-#include "./assembly.h"
 #include "./utils.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,8 +14,8 @@ typedef struct Resolution {
   Status status;
 } Resolution;
 
-
-Resolution resolve_tokens(HashMap *name_map, Assembly *assembly, TokenizedLine t_line, int *start) {
+Resolution resolve_tokens(HashMap *name_map, Assembly *assembly,
+                          TokenizedLine t_line, int *start) {
   Resolution res;
   res.value = 0;
   if (*start >= t_line.length) {
@@ -97,7 +97,8 @@ Resolution resolve_tokens(HashMap *name_map, Assembly *assembly, TokenizedLine t
   return res;
 }
 
-void compile_tokens(Assembly *assembly, TokenizedLine *tokenized_lines, int line_count) {
+void compile_tokens(Assembly *assembly, TokenizedLine *tokenized_lines,
+                    int line_count) {
   HashMap name_map = new_hash_map(500);
   for (int i = 0; i < line_count; i++) {
     TokenizedLine t_line = tokenized_lines[i];

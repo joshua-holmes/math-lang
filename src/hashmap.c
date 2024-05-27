@@ -1,6 +1,6 @@
+#include "./utils.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "./utils.h"
 
 typedef struct KVPair {
   char key[21];
@@ -17,7 +17,7 @@ HashMap new_hash_map(int capacity) {
   HashMap hm;
   hm.capacity = capacity;
   hm.length = 0;
-  hm.list = calloc(hm.capacity, sizeof(KVPair*));
+  hm.list = calloc(hm.capacity, sizeof(KVPair *));
   return hm;
 }
 
@@ -27,7 +27,8 @@ int basic_hash_str(char *str, int max_value) {
   int i = 0;
   while (str[i] != '\0') {
     if (!is_letter(str[i]) && !is_number(str[i])) {
-      printf("ERROR: Attempted to hash non-digit non-alphabetic key. This hashing function doesn't support that.");
+      printf("ERROR: Attempted to hash non-digit non-alphabetic key. This "
+             "hashing function doesn't support that.");
       exit(1);
     }
 
@@ -38,7 +39,7 @@ int basic_hash_str(char *str, int max_value) {
 
     i++;
   }
-  
+
   return hashcode % max_value;
 }
 
@@ -79,4 +80,3 @@ void hm_free(HashMap hm) {
   free(*hm.list);
   free(hm.list);
 }
-

@@ -89,7 +89,8 @@ TokenizedLine tokenize_line(int token_count, char *line) {
   return tokenized_line;
 }
 
-void tokenize_lines(TokenizedLine *tokenized_lines, FILE *file, int line_count, int max_line_size) {
+void tokenize_lines(TokenizedLine *tokenized_lines, FILE *file, int line_count,
+                    int max_line_size) {
   for (int i = 0; i < line_count; i++) {
     char line[max_line_size];
     fgets(line, max_line_size, file);

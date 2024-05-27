@@ -12,10 +12,15 @@ typedef struct Options {
 void print_help() {
   printf("Usage: mang [options] filename\n");
   printf("Options:\n");
-  printf("\t-o --output: If --no-asm is not set, this is the name of the compiled executable.\n");
-  printf("\t--no-asm: When this option is present, -o is ignored. The program does not link or assemble. The output is an assembly file. Primarily used for debugging purposes.\n");
+  printf("\t-o --output: If --no-asm is not set, this is the name of the "
+         "compiled executable.\n");
+  printf("\t--no-asm: When this option is present, -o is ignored. The program "
+         "does not link or assemble. The output is an assembly file. Primarily "
+         "used for debugging purposes.\n");
   printf("\t-h --help: Prints this help message.\n");
-  printf("If no options are given and only the input filename is given, the program will compile, assemble, link, then produce an executable called \"out\"\n");
+  printf("If no options are given and only the input filename is given, the "
+         "program will compile, assemble, link, then produce an executable "
+         "called \"out\"\n");
 }
 
 Options parse_args(int argc, char **argv) {
@@ -55,9 +60,12 @@ void validate_args(Options *options) {
     printf("ERROR: No input file given.\n");
     print_help();
     exit(1);
-  } else if (options->assemble_and_link && (system("which nasm > /dev/null") || system("which ld > /dev/null"))) {
-    printf("\nERROR: When assembling and linking is enabled, both the `nasm` and `ld` programs must be installed and added to path.\n");
-    printf("If you want to disable assembling and linking, pass the --no-asm flag to mang when compiling.\n");
+  } else if (options->assemble_and_link && (system("which nasm > /dev/null") ||
+                                            system("which ld > /dev/null"))) {
+    printf("\nERROR: When assembling and linking is enabled, both the `nasm` "
+           "and `ld` programs must be installed and added to path.\n");
+    printf("If you want to disable assembling and linking, pass the --no-asm "
+           "flag to mang when compiling.\n");
     exit(1);
   }
 }

@@ -1,6 +1,6 @@
+#include "./args.h"
 #include "./compile.h"
 #include "./hashmap.h"
-#include "./args.h"
 #include "./utils.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -48,7 +48,8 @@ int main(int argc, char **argv) {
 
     // link
     char *lnk_command_fmt = "ld -o %s %s";
-    int lnk_command_len = snprintf(NULL, 0, lnk_command_fmt, options.output_f, OBJ_OUT);
+    int lnk_command_len =
+        snprintf(NULL, 0, lnk_command_fmt, options.output_f, OBJ_OUT);
     char lnk_command[lnk_command_len];
     sprintf(lnk_command, lnk_command_fmt, options.output_f, OBJ_OUT);
     system(lnk_command);

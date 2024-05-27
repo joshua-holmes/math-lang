@@ -21,7 +21,8 @@ static const int ASM_VAR_LENGTH = 10;
 
 void asm_add_line(Assembly *assembly, Section section, const char *line) {
   int length = 0;
-  while (line[length++] != '\0');
+  while (line[length++] != '\0')
+    ;
   char *fmt = section == ASM_TEXT ? "        %s\n" : "    %s\n";
   int mod_length = snprintf(NULL, 0, fmt, line);
   char mod_line[mod_length];
