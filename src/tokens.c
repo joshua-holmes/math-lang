@@ -22,17 +22,15 @@ int count_tokens(char *line) {
   int space_count = 0;
   int i = 0;
   char pre_c = '\0';
-  while (1) {
-    char cur_c = line[i];
+  char cur_c = line[0];
+  while (cur_c != '\0') {
     if (cur_c == ' ' && pre_c != ' ' && pre_c != '\0') {
       space_count += 1;
     } else if (cur_c == '\n' && pre_c == ' ') {
       space_count -= 1;
-    } else if (cur_c == '\0') {
-      break;
     }
     pre_c = cur_c;
-    i++;
+    cur_c = line[++i];
   }
   return space_count + 1;
 }
