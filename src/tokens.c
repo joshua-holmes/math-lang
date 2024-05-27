@@ -28,6 +28,9 @@ int count_tokens(char *line) {
       space_count += 1;
     } else if (cur_c == '\n' && pre_c == ' ') {
       space_count -= 1;
+    } else if (cur_c == '/' && pre_c == '/') {
+      space_count -= 1;
+      break;
     }
     pre_c = cur_c;
     cur_c = line[++i];
