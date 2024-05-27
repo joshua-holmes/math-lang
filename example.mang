@@ -1,6 +1,6 @@
 // a comment
-make foo 9
+make foo 9 // an in-line comment
 make boo 6
 make buzz add foo boo
-print buzz
-print sub 8 3 // an in-line comment
+print buzz    // prints 15
+print sub 8 3 // prints 5
