@@ -1,6 +1,6 @@
 # Math Lang
 
-Hello, I am writing a compiler in C so I can learn about how compilers work and to improve my C skills (which are lacking).
+*Hello, I am writing a compiler in C so I can learn about how compilers work and to improve my C skills (which are lacking).*
 
 The abomination I have spawned is called Math Lang. It's a bash-style case-insensitive ~~monstrosity~~ language focused on performing math operations on large data sets... Well it would be if I implemented the ability to accept large data sets. Look, it's a very rough prototype. Will it ever see it's potential? Probably not, but only time will tell.
 
