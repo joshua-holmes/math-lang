@@ -55,5 +55,7 @@ int main(int argc, char **argv) {
     remove(OBJ_OUT);
   }
 
+  // free things
+  free_tokens(tokenized_lines, f_info.line_count);
   fclose(file);
 }

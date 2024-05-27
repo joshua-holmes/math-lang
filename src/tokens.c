@@ -10,10 +10,10 @@ typedef enum TokenType {
 } TokenType;
 typedef struct Token {
   TokenType type;
-  char value[21]; // null-terminated string
+  char *value; // null-terminated string
 } Token;
 typedef struct TokenizedLine {
-  Token tokens[100];
+  Token *tokens;
   int length;
 } TokenizedLine;
 
@@ -51,13 +51,10 @@ int get_token_type(char *value, int is_word) {
 
 // assumes line is terminated by `\n` then `\0` in that order
 TokenizedLine tokenize_line(int token_count, char *line) {
-  if (token_count > 100) {
-    printf("ERROR: More than 100 tokens in a single line is not supported");
-    exit(1);
-  }
   int line_count = count_chars_in_line(line);
   int j = 0;
   TokenizedLine tokenized_line;
+  tokenized_line.tokens = malloc(token_count * sizeof(Token));
   for (int i = 0; i < token_count; i++) {
     int token_len;
     int is_word = 0;
@@ -76,9 +73,7 @@ TokenizedLine tokenize_line(int token_count, char *line) {
 
     Token new_token;
     token_len = end - start + 1; // + 1 so it ends with `\0`
-    if (token_len > 21) {
-      printf("ERROR: Token cannot be longer than 20 characters");
-    }
+    new_token.value = malloc(token_len * sizeof(char));
     int tv_i = 0; // token_val index
     for (int k = start; k < end; k++) {
       new_token.value[tv_i] = line[k];
@@ -101,5 +96,16 @@ void tokenize_lines(TokenizedLine *tokenized_lines, FILE *file, int line_count, 
     to_lower(line);
     int token_count = count_tokens(line);
     tokenized_lines[i] = tokenize_line(token_count, line);
+  }
+}
+
+void free_tokens(TokenizedLine *tokenized_lines, int line_count) {
+  for (int i = 0; i < line_count; i++) {
+    TokenizedLine t_line = tokenized_lines[i];
+    for (int j = 0; j < t_line.length; j++) {
+      Token token = t_line.tokens[j];
+      free(token.value);
+    }
+    free(t_line.tokens);
   }
 }
